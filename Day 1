@@ -1,0 +1,92 @@
+#include <PRIZM.h> // include the PRIZM library
+PRIZM prizm; // initiate a PRIZM object "prizm" so we can use its functions
+void setup() {
+prizm.PrizmBegin(); // initialize the PRIZM controller`````````````
+}
+ 
+
+
+ void setSpeedStates(){                                //This function is not to be called, its an index for which directions the servos the should be used in order to intake and score.
+  prizm.setCRServoState(1,-100);  //H-Drive. CCW
+  prizm.setCRServoState(2,100);   //Pitch.   Cw
+  prizm.setCRServoState(3,100);   //Roll.    Cw
+  prizm.setCRServoState(4,100);   //Intake.  CW
+ }
+
+
+
+
+
+void intakeFromStart(){
+prizm.setMotorPower(1,25);        //Drives forward for 1/2 a second
+prizm.setMotorPower(2,-25);
+delay(500);
+prizm.setMotorPower(1,125);       //Stops the robot
+prizm.setMotorPower(2,125);
+delay(100);                       // 0.1 second delay for consistency
+prizm.setCRServoState(4,100);     //Intake
+}
+
+
+
+
+
+void driveToResourceGrid(){
+prizm.setMotorPower(1,25);        //Drives to the Resource Grids
+prizm.setMotorPower(2,-25);
+delay(2500);
+prizm.setMotorPower(1,125);       //Stops the robot
+prizm.setMotorPower(2,125);
+delay(100);   // 0.1 second delay for consistency
+}
+
+
+void scoreL2(){
+  prizm.setCRServoState(2,50);   //Pitch to parallel to ground
+  delay(150);
+  prizm.setCRServoState(2,0);   //stops pitch
+
+  prizm.setCRServoState(3,50);   //roll to perpendicular to ground
+  delay(150);
+  prizm.setCRServoState(3,0); //stops roll
+
+  prizm.setCRServoState(1,100);   //Drives h-drive to score piece
+  delay (150);
+    prizm.setCRServoState(1,0);   //stops h-drive
+
+}
+
+
+void driveBackToStart(){
+  prizm.setMotorPower(1,-25);        //Drives back to the starting position
+prizm.setMotorPower(2,25);
+delay(3000);
+prizm.setMotorPower(1,125);       //Stops the robot
+prizm.setMotorPower(2,125);
+delay(100);   // 0.1 second delay for consistency
+
+  prizm.setCRServoState(1,-100);   //Drives h-drive to align with piece (Getting us back to starting position)
+  delay (150);
+    prizm.setCRServoState(1,0);   //stops h-drive
+
+prizm.setCRServoState(2,-50);   //Pitch to perpendicular to ground
+  delay(150);
+  prizm.setCRServoState(2,0);   //stops pitch
+
+prizm.setCRServoState(3,-50);   //roll to parallel to ground
+  delay(150);
+  prizm.setCRServoState(3,0); //stops roll
+}
+
+
+
+void loop() {
+intakeFromStart();
+driveToResourceGrid();
+scoreL2();
+driveBackToStart();
+
+
+
+
+}
