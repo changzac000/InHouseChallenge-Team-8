@@ -1,0 +1,164 @@
+#include <PRIZM.h> // include the PRIZM library
+PRIZM prizm; // initiate a PRIZM object "prizm" so we can use its functions
+void setup() {
+prizm.PrizmBegin(); // initialize the PRIZM controller`````````````
+getToStartLocation(); //Gets to Starting location for the loop.
+setSpeedStates();
+getToStartLocation();
+}
+
+
+void loop() {
+intake();
+CCW();
+straight();
+CW();
+scoreL3();
+CW();
+straight();
+CCW();
+}
+
+
+
+
+
+
+void getToStartLocation() {
+CCW();
+straight();
+CW();
+straight();
+}
+
+
+
+
+
+
+
+
+
+
+void straight() { //function for going straight and stop for accuracy
+prizm.setMotorPower(1,-25);
+prizm.setMotorPower(2,25);
+delay(1500);
+//prizm.setMotorPower(1,125); (commented out so it drives constantly.)
+//prizm.setMotorPower(2,125);
+//delay(1000);
+}
+
+
+void CW() { //function for turning 90 degrees CW and story for accuracy
+prizm.setMotorPower(1,-25);
+prizm.setMotorPower(2,0);
+delay(2000);
+prizm.setMotorPower(1,125);
+prizm.setMotorPower(2,125);
+delay(1000);
+}
+
+
+
+
+void CCW() { //function for turning 90 degrees CCW and story for accuracy
+prizm.setMotorPower(1,-0);
+prizm.setMotorPower(2,25);
+delay(2600);
+prizm.setMotorPower(1,125);
+prizm.setMotorPower(2,125);
+delay(1000);
+}
+
+
+void setSpeedStates(){                                //This function is not to be called, its an index for which directions the servos the should be used in order to intake and score.
+ prizm.setCRServoState(1,100);   //Pitch1.   Cw
+ prizm.setCRServoState(2,100);   //Pitch2.   Cw
+ prizm.setCRServoState(3,100);   //Roll.    Cw
+ prizm.setCRServoState(4,100);   //Intake.  CW
+}
+
+
+
+
+
+
+
+
+
+
+void intake(){
+
+
+ prizm.setMotorPower(1,-25); //drives up to piece
+prizm.setMotorPower(2,25);
+delay(250);
+prizm.setMotorPower(1,125); //Stops the robot
+prizm.setMotorPower(2,125);
+delay(100); // 0.1 second delay for consistency
+
+
+prizm.setCRServoState(4,100);   //Intake.  CW
+delay(250);
+ prizm.setCRServoState(4,0);   //Intake.  stop
+
+
+
+
+prizm.setMotorPower(1,-25); //drives back starting position
+prizm.setMotorPower(2,25);
+delay(250);
+prizm.setMotorPower(1,125); //Stops the robot
+prizm.setMotorPower(2,125);
+delay(100); // 0.1 second delay for consistency
+}
+
+
+
+
+
+
+
+
+void scoreL3(){
+
+
+ prizm.setCRServoState(2,100);   //Pitch.   Cw
+delay(350);
+ prizm.setCRServoState(2,0);   //Pitch.   bring up to L3
+
+
+  prizm.setCRServoState(3,100);   //Roll L3 position
+  delay(350);
+  prizm.setCRServoState(3,0);   //Roll L3 position stop
+
+
+  prizm.setMotorPower(1,-25); //drives up to piece
+prizm.setMotorPower(2,25);
+delay(250);
+prizm.setMotorPower(1,125); //Stops the robot
+prizm.setMotorPower(2,125);
+delay(100); // 0.1 second delay for consistency
+
+
+prizm.setCRServoState(2,-15);   //Pitch.   Cw
+delay(100);
+ prizm.setCRServoState(2,0);   //Pitch.   bring down to score L3
+
+
+
+
+prizm.setMotorPower(1,25); //drives back to start piece
+prizm.setMotorPower(2,-25);
+delay(250);
+prizm.setMotorPower(1,125); //Stops the robot
+prizm.setMotorPower(2,125);
+delay(100); // 0.1 second delay for consistency
+
+
+
+
+}
+
+
