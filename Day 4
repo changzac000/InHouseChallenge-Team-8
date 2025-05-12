@@ -3,6 +3,9 @@ PRIZM prizm; // initiate a PRIZM object "prizm" so we can use its functions
 void setup() {
 prizm.PrizmBegin(); // initialize the PRIZM controller`````````````
 HUH();
+callFunction1();
+callFunction2();
+callFunction3();
 //start();
 //CCW();
 //CW();
@@ -11,33 +14,58 @@ HUH();
 
 void loop() {
 
+
+int I;
+I = prizm.readLineSensor(3);         //Reads the line sensor
+if (I == LOW){                       //Prints if there is nothing
+Serial.println(I);
+}else {
+Serial.println(I);                   //Prints state if there is something
+
+
+
+
+int X = prizm.readSonicSensorIN(2); // reads and sets integer X to the distance that is sensed.
+
+Serial.println(X); //prints the distance in the console on a new line.
+
+for(p=0;p<5;p++){               //Use of for loop to loop a printed message
+Serial/println("hi");
+}
+
+
+}
+
+
+
+
 }
 
 void VAS(){
   
 }
 
-void HUH(){
+void HUH(){        //The actual run autonomous routine
  prizm.setServoPosition(1,125); //SMALLPITCH up position
  prizm.setMotorPower(1,25);
-prizm.setMotorPower(2,-25);
+prizm.setMotorPower(2,-25);           //move forwards
 delay (2250);
 prizm.setMotorPower(1,15);
-prizm.setMotorPower(2,-15);
+prizm.setMotorPower(2,-15);                 //move forwards slower
 delay(250);
   prizm.setMotorPower(1,125); 
-prizm.setMotorPower(2,125);
+prizm.setMotorPower(2,125);              //stops
 delay(1000);
 prizm.setMotorPower(1,-45);
-prizm.setMotorPower(2,-45);
-delay(1200);      //turn
-prizm.setMotorPower(1,125); //(commented out so it drives constantly.)
-prizm.setMotorPower(2,125);
+prizm.setMotorPower(2,-45);       
+delay(1200);                             //turns to line up
+prizm.setMotorPower(1,125); 
+prizm.setMotorPower(2,125);                   //stops
 delay(1000);
-prizm.setMotorPower(1,25);
+prizm.setMotorPower(1,25);                   //moves forwards
 prizm.setMotorPower(2,-25);
 delay (2500);
-prizm.setMotorPower(1,125); //(commented out so it drives constantly.)
+prizm.setMotorPower(1,125);                   //stops
 prizm.setMotorPower(2,125);
 
 }
@@ -45,7 +73,14 @@ prizm.setMotorPower(2,125);
 
 
 
+callFunction1(){
+}
 
+callFunction2(){
+}
+
+callFunction3(){
+}
 
 
 
